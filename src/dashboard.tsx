@@ -13,9 +13,9 @@ import { Slider } from "./components/ui/slider"
 
 export function Dashboard() {
 	return (
-		<div className="grid h-screen w-full pl-4 md:pl-8 lg:pl-12">
+		<div className="md:pl08 grid h-screen w-full">
 			<div className="flex h-full flex-col">
-				<main className="grid flex-1 grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+				<main className="grid grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
 					{/* Left Panel */}
 					<div className="hidden flex-col items-start gap-8 md:col-span-1 md:flex lg:col-span-1">
 						<form className="grid w-full items-start gap-6">
@@ -39,11 +39,12 @@ export function Dashboard() {
 									<Slider />
 								</div>
 							</fieldset>
+
 							<fieldset className="row-span-2 gap-6 rounded-lg border p-4">
 								<legend className="-ml-1 px-1 text-sm font-medium">
 									Rotate
 								</legend>
-								<div className="flex justify-between">
+								<div className="flex justify-evenly">
 									<Button
 										variant="outline"
 										size="sm"
@@ -83,8 +84,8 @@ export function Dashboard() {
 					</div>
 
 					{/* Main Content */}
-					<div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 md:col-span-2 lg:col-span-3">
-						<div className="max-h-[calc(100vh-10rem)] flex-1 overflow-auto">
+					<div className="relative flex h-full min-h-[80vh] flex-col overflow-auto rounded-xl bg-muted/50 p-4 md:col-span-2 lg:col-span-3">
+						<div className="flex-1 overflow-auto">
 							<MyDropzone />
 						</div>
 					</div>
@@ -115,7 +116,7 @@ export function Dashboard() {
 						</fieldset>
 						<fieldset className="row-span-2 gap-6 rounded-lg border p-4">
 							<legend className="-ml-1 px-1 text-sm font-medium">Rotate</legend>
-							<div className="flex justify-between">
+							<div className="flex justify-evenly">
 								<Button variant="outline" size="sm" className="gap-1.5 text-sm">
 									<RotateCcw />
 									Rotate Left 90°
