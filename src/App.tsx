@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/site-header"
 import { useRoutes } from "react-router-dom"
-import { TailwindIndicator } from "./components/tailwind-indicator"
 import { Dashboard } from "./dashboard"
 
 const routes = [{ path: "/", element: <Home /> }]
