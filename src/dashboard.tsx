@@ -1,22 +1,5 @@
-import {
-	Bird,
-	Rabbit,
-	RotateCcw,
-	RotateCw,
-	Settings,
-	Sliders,
-	Turtle,
-} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { RotateCcw, RotateCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-	Drawer,
-	DrawerContent,
-	DrawerDescription,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger,
-} from "@/components/ui/drawer"
 import { Label } from "@/components/ui/label"
 import {
 	Select,
@@ -30,7 +13,8 @@ import { Slider } from "./components/ui/slider"
 
 export function Dashboard() {
 	return (
-		<div className="pl-[56px grid h-screen w-full">
+		// eslint-disable-next-line tailwindcss/no-custom-classname
+		<div className="pl-56px grid h-screen w-full">
 			<div className="flex flex-col">
 				<main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
 					<div

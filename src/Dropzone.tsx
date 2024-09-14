@@ -92,7 +92,8 @@
 // 	)
 // }
 
-import React, { useCallback, useState } from "react"
+//@ts-nocheck
+import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 
 export default function MyDropzone() {
@@ -116,11 +117,11 @@ export default function MyDropzone() {
 
 	const uploadImage = async () => {
 		if (!dataURL) return
-		let formData = new FormData()
+		const formData = new FormData()
 		formData.append("file", dataURL)
 		// Replace with actual upload logic
-		// formData.append("upload_preset", YOUR_UPLOAD_PRESET);
-		// formData.append("api_key", YOUR_API_KEY);
+		formData.append("upload_preset", YOUR_UPLOAD_PRESET)
+		formData.append("api_key", YOUR_API_KEY)
 
 		await fetch("YOUR_CLOUDINARY_UPLOAD_URL", {
 			method: "POST",
