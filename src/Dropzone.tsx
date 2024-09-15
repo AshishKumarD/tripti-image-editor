@@ -8,16 +8,22 @@ export default function MyDropzone() {
 	const { imageUrl, setImageUrl } = useImage()
 
 	const onDrop = useCallback((acceptedFiles: File[]) => {
-		acceptedFiles.forEach((file) => {
-			const reader = new FileReader()
-			reader.onabort = () => console.log("file reading was aborted")
-			reader.onerror = () => console.log("file reading has failed")
-			reader.onload = () => {
-				const binaryStr = reader.result as string
-				setDataURL(binaryStr)
+		// Check if any files are accepted and handle only the first one
+		if (acceptedFiles.length > 0) {
+			const file = acceptedFiles[0]
+			if (file.type.startsWith("image/")) {
+				const reader = new FileReader()
+				reader.onabort = () => console.log("file reading was aborted")
+				reader.onerror = () => console.log("file reading has failed")
+				reader.onload = () => {
+					const binaryStr = reader.result as string
+					setDataURL(binaryStr)
+				}
+				reader.readAsDataURL(file)
+			} else {
+				alert("Only image files are allowed.")
 			}
-			reader.readAsDataURL(file)
-		})
+		}
 	}, [])
 
 	const uploadImage = async () => {
