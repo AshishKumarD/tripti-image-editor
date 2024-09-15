@@ -122,11 +122,16 @@ export function Dashboard() {
 	}
 
 	return (
-		<div className="md:pl08 grid h-screen w-full">
+		<div className="grid h-screen w-full md:pl-8">
 			<div className="flex h-full flex-col">
 				<main className="grid grid-cols-1 gap-4 overflow-auto p-4 md:grid-cols-3 lg:grid-cols-4">
+					{/* Main Content */}
+					<div className="relative flex h-full min-h-[80vh] flex-col overflow-auto rounded-xl bg-muted/50 p-4 md:col-span-2 lg:col-span-3">
+						<MyDropzone />
+					</div>
+
 					{/* Left Panel */}
-					<div className="hidden flex-col items-start gap-8 md:col-span-1 md:flex lg:col-span-1">
+					<div className="left-0 w-full p-4 shadow-md">
 						<form className="grid w-full items-start gap-6">
 							<fieldset className="grid gap-6 rounded-lg border p-4">
 								<legend className="-ml-1 px-1 text-sm font-medium">
@@ -252,11 +257,6 @@ export function Dashboard() {
 								</Button>
 							</fieldset>
 						</form>
-					</div>
-
-					{/* Main Content */}
-					<div className="relative flex h-full min-h-[80vh] flex-col overflow-auto rounded-xl bg-muted/50 p-4 md:col-span-2 lg:col-span-3">
-						<MyDropzone />
 					</div>
 				</main>
 			</div>
