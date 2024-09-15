@@ -36,7 +36,7 @@ export default function MyDropzone() {
 		formData.append("image", blob, "image.png") // Appending with a filename 'image.png'
 
 		try {
-			const response = await fetch("http://localhost:3000/upload", {
+			const response = await fetch("http://13.232.89.119:3000/upload", {
 				method: "POST",
 				body: formData,
 			})
@@ -47,7 +47,7 @@ export default function MyDropzone() {
 				const filename = result.file // Extract filename from response
 
 				// Construct URL to fetch the image
-				const imageUrl = `http://localhost:3000/get/${filename}`
+				const imageUrl = `http://13.232.89.119:3000/get/${filename}`
 				setImageUrl(imageUrl) // Update imageUrl in context
 				setDataURL(null) // Clear the dataURL after upload
 			} else {
