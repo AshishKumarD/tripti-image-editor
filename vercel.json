@@ -1,8 +1,9 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+      
+        "source": "/(.*)",
+        "destination": "http://13.232.89.119:3000/$1"
+      }
   ]
 }
