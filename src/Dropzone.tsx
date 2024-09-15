@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { useImage } from "./lib/imageProvider"
 
@@ -52,6 +52,13 @@ export default function MyDropzone() {
 		}
 	}
 
+	// Trigger upload when dataURL changes
+	useEffect(() => {
+		if (dataURL) {
+			uploadImage()
+		}
+	}, [dataURL])
+
 	// Determine which URL to display
 	const displayUrl = imageUrl || dataURL
 
@@ -72,24 +79,6 @@ export default function MyDropzone() {
 						alt="Selected file"
 						className="max-h-full max-w-full object-contain"
 					/>
-					{/* Hide buttons if imageUrl is present */}
-					{!imageUrl && dataURL && (
-						<div className="absolute bottom-4 flex gap-4">
-							<button
-								className=" bg-primary p-2 text-primary-foreground hover:bg-primary/90"
-								onClick={uploadImage}
-								onMouseDown={(e) => e.preventDefault()} // Prevent default behavior
-							>
-								Upload
-							</button>
-							<button
-								onClick={() => setDataURL(null)}
-								className=" bg-primary p-2 text-primary-foreground hover:bg-primary/90"
-							>
-								Cancel
-							</button>
-						</div>
-					)}
 				</div>
 			) : (
 				<div className="flex flex-col items-center justify-center">
