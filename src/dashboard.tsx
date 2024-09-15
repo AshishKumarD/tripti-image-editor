@@ -1,7 +1,7 @@
 import { RotateCcw, RotateCw, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import React, { useState, useCallback } from "react"
+import { useState } from "react"
 import {
 	Select,
 	SelectContent,
@@ -23,62 +23,163 @@ export function Dashboard() {
 	const [quality, setQuality] = useState(50) // New state for image quality
 	const [width, setWidth] = useState(500) // New state for image width
 
+	// const handleBrightnessChange = (value: number) => {
+	// 	setBrightness(value)
+	// 	handleTransform()
+	// }
+
+	// const handleContrastChange = (value: number) => {
+	// 	setContrast(value)
+	// 	handleTransform()
+	// }
+
+	// const handleSaturationChange = (value: number) => {
+	// 	setSaturation(value)
+	// 	handleTransform()
+	// }
+
+	// const handleRotationLeft = () => {
+	// 	setRotation((prevRotation) => {
+	// 		const newRotation = prevRotation - 90
+	// 		return newRotation < 0 ? 360 + newRotation : newRotation
+	// 	})
+	// 	handleTransform()
+	// }
+
+	// const handleRotationRight = () => {
+	// 	setRotation((prevRotation) => {
+	// 		const newRotation = prevRotation + 90
+	// 		return newRotation >= 360 ? newRotation - 360 : newRotation
+	// 	})
+	// 	handleTransform()
+	// }
+
+	// const handleImageTypeChange = (value: string) => setImageType(value)
+
+	// const handleQualityChange = (value: number) => {
+	// 	setQuality(value)
+	// 	handleTransform()
+	// }
+
+	// const handleWidthChange = (value: number) => {
+	// 	setWidth(value)
+	// 	handleTransform()
+	// }
+
+	// const handleTransform = () => {
+	// 	// Check if imageUrl has a base URL and strip existing query parameters if needed
+	// 	const baseUrl = imageUrl?.split("?")[0]
+
+	// 	// Construct the query parameters
+	// 	const queryParams = new URLSearchParams({
+	// 		b: brightness.toString(),
+	// 		s: saturation.toString(),
+	// 		c: contrast.toString(),
+	// 		r: rotation.toString(),
+	// 		f: imageType,
+	// 		q: quality.toString(), // Add quality parameter
+	// 		w: width.toString(), // Add width parameter
+	// 	}).toString()
+
+	// 	// Build the new URL
+	// 	const newUrl = `${baseUrl}?${queryParams}`
+
+	// 	// Update the image URL in the state or context
+	// 	setImageUrl(newUrl)
+
+	// 	console.log("Transforming image with", {
+	// 		newUrl,
+	// 		brightness,
+	// 		contrast,
+	// 		saturation,
+	// 		rotation,
+	// 		imageType,
+	// 		quality, // Log quality as well
+	// 		width, // Log width as well
+	// 	})
+	// }
+
 	const handleBrightnessChange = (value: number) => {
 		setBrightness(value)
-		handleTransform()
+		handleTransform({ brightness: value })
 	}
 
 	const handleContrastChange = (value: number) => {
 		setContrast(value)
-		handleTransform()
+		handleTransform({ contrast: value })
 	}
 
 	const handleSaturationChange = (value: number) => {
 		setSaturation(value)
-		handleTransform()
+		handleTransform({ saturation: value })
 	}
 
 	const handleRotationLeft = () => {
 		setRotation((prevRotation) => {
-			const newRotation = prevRotation - 90
-			return newRotation < 0 ? 360 + newRotation : newRotation
+			const newRotation = (prevRotation - 90 + 360) % 360
+			handleTransform({ rotation: newRotation })
+			return newRotation
 		})
-		handleTransform()
 	}
 
 	const handleRotationRight = () => {
 		setRotation((prevRotation) => {
-			const newRotation = prevRotation + 90
-			return newRotation >= 360 ? newRotation - 360 : newRotation
+			const newRotation = (prevRotation + 90) % 360
+			handleTransform({ rotation: newRotation })
+			return newRotation
 		})
-		handleTransform()
 	}
 
-	const handleImageTypeChange = (value: string) => setImageType(value)
+	const handleImageTypeChange = (value: string) => {
+		setImageType(value)
+		handleTransform({ imageType: value })
+	}
 
 	const handleQualityChange = (value: number) => {
 		setQuality(value)
-		handleTransform()
+		handleTransform({ quality: value })
 	}
 
 	const handleWidthChange = (value: number) => {
 		setWidth(value)
-		handleTransform()
+		handleTransform({ width: value })
 	}
 
-	const handleTransform = useCallback(() => {
+	type TransformationParams = {
+		brightness: number
+		contrast: number
+		saturation: number
+		rotation: number
+		imageType: string
+		quality: number
+		width: number
+	}
+
+	const handleTransform = (updatedParams: Partial<TransformationParams>) => {
 		// Check if imageUrl has a base URL and strip existing query parameters if needed
 		const baseUrl = imageUrl?.split("?")[0]
 
+		// Create an object to store all parameters
+		const params = {
+			brightness,
+			contrast,
+			saturation,
+			rotation,
+			imageType,
+			quality,
+			width,
+			...updatedParams,
+		}
+
 		// Construct the query parameters
 		const queryParams = new URLSearchParams({
-			b: brightness.toString(),
-			s: saturation.toString(),
-			c: contrast.toString(),
-			r: rotation.toString(),
-			f: imageType,
-			q: quality.toString(), // Add quality parameter
-			w: width.toString(), // Add width parameter
+			b: params.brightness.toString(),
+			s: params.saturation.toString(),
+			c: params.contrast.toString(),
+			r: params.rotation.toString(),
+			f: params.imageType,
+			q: params.quality.toString(),
+			w: params.width.toString(),
 		}).toString()
 
 		// Build the new URL
@@ -87,30 +188,10 @@ export function Dashboard() {
 		// Update the image URL in the state or context
 		setImageUrl(newUrl)
 
-		console.log("Transforming image with", {
-			newUrl,
-			brightness,
-			contrast,
-			saturation,
-			rotation,
-			imageType,
-			quality, // Log quality as well
-			width, // Log width as well
-		})
-	}, [
-		imageUrl,
-		brightness,
-		contrast,
-		saturation,
-		rotation,
-		imageType,
-		quality,
-		width,
-		setImageUrl,
-	])
+		console.log("Transforming image with", params)
+	}
 
 	const handleDownload = () => {
-		handleTransform()
 		const link = document.createElement("a")
 		if (imageUrl) {
 			link.href = imageUrl
