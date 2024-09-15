@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react"
 
 const ImageContext = createContext({
 	imageUrl: null as string | null,
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	setImageUrl: (url: string) => {},
 })
 
